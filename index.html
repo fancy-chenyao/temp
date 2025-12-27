@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="圣诞节主题页面 - Merry Christmas">
+    <title>圣诞快乐 - Merry Christmas</title>
+    
+    <!-- Favicon - Christmas tree emoji -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎄</text></svg>">
+    
+    <!-- Preconnect to external domains for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Google Fonts with display=swap for better performance -->
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Inline critical CSS for faster initial render -->
+    <style>
+        /* Critical CSS - inline for faster first paint */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: linear-gradient(135deg, #0F2027 0%, #203A43 50%, #2C5364 100%);
+            background-attachment: fixed;
+            color: #FFFFFF;
+        }
+        /* Loading indicator */
+        #loading-indicator {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10002;
+        }
+        #loading-indicator .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #FFD700;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+    
+    <!-- Styles - load asynchronously after critical CSS -->
+    <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="styles.css"></noscript>
+</head>
+<body>
+    <!-- Loading indicator -->
+    <div id="loading-indicator">
+        <div class="spinner"></div>
+        <p style="margin-top: 20px; font-family: 'Raleway', sans-serif; color: #FFD700;">
+            加载中... / Loading...
+        </p>
+    </div>
+    
+    <!-- Canvas for snowflake particles -->
+    <canvas id="snowCanvas" aria-hidden="true"></canvas>
+    
+    <!-- Screen reader announcements -->
+    <div id="sr-announcements" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+    
+    <!-- Main content container -->
+    <div class="container">
+        <!-- Greeting text -->
+        <div class="greeting-text" role="banner">
+            <h1 class="greeting-primary">圣诞快乐</h1>
+            <h2 class="greeting-secondary">Merry Christmas</h2>
+        </div>
+        
+        <!-- Christmas tree container -->
+        <div id="christmasTree" class="christmas-tree" aria-hidden="true">
+            <div class="tree-top"></div>
+            <div class="tree-middle"></div>
+            <div class="tree-bottom"></div>
+            <div class="tree-trunk"></div>
+            <div class="tree-star">⭐</div>
+        </div>
+        
+        <!-- Christmas decorations container -->
+        <div id="decorations" class="decorations" role="group" aria-label="圣诞装饰元素"></div>
+        
+        <!-- Audio controls -->
+        <div id="audioControls" class="audio-controls" role="region" aria-label="音频控制">
+            <button id="audioToggle" class="audio-button" tabindex="0" aria-label="播放/暂停音乐">
+                <span class="audio-icon">🔇</span>
+            </button>
+            <input type="range" id="volumeControl" class="volume-slider" min="0" max="100" value="50" tabindex="0" aria-label="音量控制">
+        </div>
+        
+        <!-- Animation preference control -->
+        <div id="animationControls" class="animation-controls" role="region" aria-label="动画设置">
+            <button id="animationToggle" class="animation-button" tabindex="0" aria-label="切换动画模式" title="减少动画 / Reduce Animations">
+                <span class="animation-icon">🎬</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Main JavaScript - defer for better performance -->
+    <script defer src="main.js"></script>
+    
+    <!-- Performance monitoring script -->
+    <script>
+        // Monitor page load performance
+        window.addEventListener('load', function() {
+            // Remove loading indicator
+            const loadingIndicator = document.getElementById('loading-indicator');
+            if (loadingIndicator) {
+                loadingIndicator.style.opacity = '0';
+                loadingIndicator.style.transition = 'opacity 0.3s ease-out';
+                setTimeout(() => loadingIndicator.remove(), 300);
+            }
+            
+            // Log performance metrics with a small delay to ensure timing data is available
+            setTimeout(() => {
+                if (window.performance && window.performance.timing) {
+                    const perfData = window.performance.timing;
+                    const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+                    const domReadyTime = perfData.domContentLoadedEventEnd - perfData.navigationStart;
+                    
+                    // Only log if we have valid data
+                    if (pageLoadTime > 0 && domReadyTime > 0) {
+                        console.log('📊 Performance Metrics:');
+                        console.log(`   Page Load Time: ${pageLoadTime}ms`);
+                        console.log(`   DOM Ready Time: ${domReadyTime}ms`);
+                        
+                        // Check if load time meets requirement (< 3000ms)
+                        if (pageLoadTime > 3000) {
+                            console.warn(`⚠️  Page load time (${pageLoadTime}ms) exceeds 3 second target`);
+                        } else {
+                            console.log(`✓ Page load time within target (${pageLoadTime}ms < 3000ms)`);
+                        }
+                    }
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>

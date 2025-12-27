@@ -1,0 +1,20 @@
+{
+  "name": "christmas-theme-page",
+  "version": "1.0.0",
+  "description": "Christmas themed webpage with snowflake animations",
+  "main": "main.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:integration": "jest integration.test.js --verbose",
+    "test:all": "jest --coverage"
+  },
+  "keywords": ["christmas", "animation", "snowflake"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "fast-check": "^3.15.0",
+    "jest": "^29.7.0"
+  }
+}

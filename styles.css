@@ -1,0 +1,1109 @@
+/* ===========================
+   CSS Reset and Base Styles
+   =========================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    background: linear-gradient(135deg, #0F2027 0%, #203A43 50%, #2C5364 100%);
+    background-attachment: fixed;
+    color: #FFFFFF;
+}
+
+/* ===========================
+   CSS Variables - Christmas Theme Colors
+   =========================== */
+
+:root {
+    --christmas-red: #C41E3A;
+    --christmas-green: #165B33;
+    --christmas-gold: #FFD700;
+    --christmas-white: #FFFFFF;
+    --bg-gradient-start: #0F2027;
+    --bg-gradient-mid: #203A43;
+    --bg-gradient-end: #2C5364;
+}
+
+/* ===========================
+   Canvas - Snowflake Layer
+   =========================== */
+
+#snowCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ===========================
+   Main Container
+   =========================== */
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+/* ===========================
+   Greeting Text
+   =========================== */
+
+.greeting-text {
+    text-align: center;
+    margin-bottom: 2rem;
+    animation: fadeIn 1.5s ease-in;
+}
+
+.greeting-primary {
+    font-family: 'Mountains of Christmas', cursive;
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--christmas-white);
+    text-shadow: 
+        0 0 10px var(--christmas-gold),
+        0 0 20px var(--christmas-gold),
+        2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 0.5rem;
+}
+
+.greeting-secondary {
+    font-family: 'Mountains of Christmas', cursive;
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: var(--christmas-gold);
+    text-shadow: 
+        0 0 8px var(--christmas-white),
+        2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+/* ===========================
+   Christmas Tree Container
+   =========================== */
+
+.christmas-tree {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Tree layers - triangular shapes */
+.tree-top,
+.tree-middle,
+.tree-bottom {
+    width: 0;
+    height: 0;
+    border-left: 60px solid transparent;
+    border-right: 60px solid transparent;
+    border-bottom: 100px solid var(--christmas-green);
+    position: relative;
+    margin-bottom: -20px;
+}
+
+.tree-top {
+    border-left-width: 60px;
+    border-right-width: 60px;
+    border-bottom-width: 100px;
+}
+
+.tree-middle {
+    border-left-width: 90px;
+    border-right-width: 90px;
+    border-bottom-width: 130px;
+}
+
+.tree-bottom {
+    border-left-width: 120px;
+    border-right-width: 120px;
+    border-bottom-width: 160px;
+    margin-bottom: 0;
+}
+
+/* Tree trunk */
+.tree-trunk {
+    width: 40px;
+    height: 60px;
+    background: #8B4513;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+/* Tree lights */
+.tree-light {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    animation: lightBlink 1.5s ease-in-out infinite;
+    will-change: opacity, transform;
+    /* Hardware acceleration */
+    transform: translate(-50%, -50%) translateZ(0);
+    backface-visibility: hidden;
+}
+
+@keyframes lightBlink {
+    0%, 100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        opacity: 0.3;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+}
+
+/* Star on top */
+.tree-star {
+    position: absolute;
+    top: -30px;
+    font-size: 3rem;
+    animation: starTwinkle 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px var(--christmas-gold));
+    will-change: transform, opacity;
+    /* Hardware acceleration */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+@keyframes starTwinkle {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2) rotate(180deg);
+        opacity: 0.8;
+    }
+}
+
+/* ===========================
+   Decorations Container
+   =========================== */
+
+.decorations {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.decorations > * {
+    pointer-events: auto;
+}
+
+/* ===========================
+   Christmas Decoration Elements
+   =========================== */
+
+/* Gift Box */
+.gift-box {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.gift-box-body {
+    width: 100%;
+    height: 70%;
+    background: var(--christmas-red);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.gift-box-ribbon-v {
+    position: absolute;
+    width: 20%;
+    height: 100%;
+    background: var(--christmas-gold);
+    left: 40%;
+    top: 0;
+}
+
+.gift-box-ribbon-h {
+    position: absolute;
+    width: 100%;
+    height: 20%;
+    background: var(--christmas-gold);
+    left: 0;
+    top: 40%;
+}
+
+.gift-box-lid {
+    width: 100%;
+    height: 30%;
+    background: var(--christmas-green);
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: -5px;
+}
+
+.gift-box-bow {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* Star Decoration */
+.star-decoration {
+    position: absolute;
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 0 8px var(--christmas-gold));
+}
+
+/* Bell Decoration */
+.bell-decoration {
+    position: absolute;
+    width: 40px;
+    height: 50px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.bell-body {
+    width: 100%;
+    height: 80%;
+    background: var(--christmas-gold);
+    border-radius: 0 0 50% 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.bell-top {
+    position: absolute;
+    width: 30%;
+    height: 15%;
+    background: var(--christmas-gold);
+    border-radius: 50%;
+    left: 35%;
+    top: -8%;
+}
+
+.bell-clapper {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #8B4513;
+    border-radius: 50%;
+    left: 50%;
+    bottom: 5%;
+    transform: translateX(-50%);
+}
+
+.bell-ribbon {
+    position: absolute;
+    width: 100%;
+    height: 20%;
+    top: -10%;
+    left: 0;
+}
+
+.bell-ribbon::before,
+.bell-ribbon::after {
+    content: '';
+    position: absolute;
+    width: 40%;
+    height: 100%;
+    background: var(--christmas-red);
+    border-radius: 50%;
+}
+
+.bell-ribbon::before {
+    left: 0;
+    transform: rotate(-20deg);
+}
+
+.bell-ribbon::after {
+    right: 0;
+    transform: rotate(20deg);
+}
+
+/* Hover effects for decorations */
+.gift-box:hover,
+.star-decoration:hover,
+.bell-decoration:hover {
+    transform: scale(1.1);
+}
+
+/* ===========================
+   Interactive Element Styles
+   =========================== */
+
+/* Mark interactive elements */
+.interactive {
+    cursor: pointer;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    will-change: transform, filter;
+    /* Hardware acceleration */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Hover state for interactive elements */
+.interactive.hovered {
+    transform: scale(1.15);
+    filter: brightness(1.2) drop-shadow(0 0 15px currentColor);
+}
+
+/* Specific hover effects for each decoration type */
+.gift-box.hovered {
+    filter: brightness(1.2) drop-shadow(0 0 15px var(--christmas-red));
+}
+
+.star-decoration.hovered {
+    filter: brightness(1.3) drop-shadow(0 0 20px var(--christmas-gold));
+}
+
+.bell-decoration.hovered {
+    filter: brightness(1.2) drop-shadow(0 0 15px var(--christmas-gold));
+}
+
+/* Click state for interactive elements */
+.interactive.clicked {
+    animation: clickBounce 0.6s ease-out;
+}
+
+/* Specific click animations for each decoration type */
+.gift-box.clicked {
+    animation: giftClickSpin 0.6s ease-out;
+}
+
+.star-decoration.clicked {
+    animation: starClickRotate 0.6s ease-out;
+}
+
+.bell-decoration.clicked {
+    animation: bellClickShake 0.6s ease-out;
+}
+
+/* Click animation keyframes */
+@keyframes clickBounce {
+    0% {
+        transform: scale(1);
+    }
+    30% {
+        transform: scale(1.3);
+    }
+    50% {
+        transform: scale(0.9);
+    }
+    70% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes giftClickSpin {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    50% {
+        transform: rotate(180deg) scale(1.3);
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+@keyframes starClickRotate {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    25% {
+        transform: rotate(90deg) scale(1.4);
+    }
+    50% {
+        transform: rotate(180deg) scale(1.2);
+    }
+    75% {
+        transform: rotate(270deg) scale(1.4);
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+@keyframes bellClickShake {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: rotate(-20deg) scale(1.2);
+    }
+    20%, 40%, 60%, 80% {
+        transform: rotate(20deg) scale(1.2);
+    }
+}
+
+/* Gift box opening animation */
+.gift-box.gift-opening .gift-box-lid {
+    animation: giftLidOpen 0.8s ease-out forwards;
+}
+
+@keyframes giftLidOpen {
+    0% {
+        transform: translateY(0) rotateX(0deg);
+        transform-origin: bottom;
+    }
+    50% {
+        transform: translateY(-20px) rotateX(-45deg);
+    }
+    100% {
+        transform: translateY(-30px) rotateX(-90deg);
+        opacity: 0.5;
+    }
+}
+
+/* Surprise pop animation */
+@keyframes surprisePop {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: translate(-50%, -80%) scale(1.5);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -120%) scale(2);
+        opacity: 0;
+    }
+}
+
+/* ===========================
+   Christmas Decoration Animations
+   =========================== */
+
+/* Gift box swing animation */
+@keyframes giftSwing {
+    0%, 100% {
+        transform: rotate(-5deg);
+    }
+    50% {
+        transform: rotate(5deg);
+    }
+}
+
+.gift-box {
+    animation: giftSwing 2.5s ease-in-out infinite;
+    transform-origin: center top;
+    will-change: transform;
+    /* Hardware acceleration */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Star rotation and pulse animation */
+@keyframes starRotate {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    50% {
+        transform: rotate(180deg) scale(1.15);
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+.star-decoration {
+    animation: starRotate 3s ease-in-out infinite;
+    will-change: transform;
+    /* Hardware acceleration */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Bell swing animation */
+@keyframes bellSwing {
+    0%, 100% {
+        transform: rotate(-8deg);
+    }
+    50% {
+        transform: rotate(8deg);
+    }
+}
+
+.bell-decoration {
+    animation: bellSwing 2s ease-in-out infinite;
+    transform-origin: center top;
+    will-change: transform;
+    /* Hardware acceleration */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Hover animations override */
+.gift-box:hover {
+    animation: giftSwing 2.5s ease-in-out infinite, giftBounce 0.5s ease-out;
+}
+
+.star-decoration:hover {
+    animation: starRotate 3s ease-in-out infinite, starPulse 0.5s ease-out;
+}
+
+.bell-decoration:hover {
+    animation: bellSwing 2s ease-in-out infinite, bellRing 0.5s ease-out;
+}
+
+@keyframes giftBounce {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+@keyframes starPulse {
+    0%, 100% {
+        filter: drop-shadow(0 0 8px var(--christmas-gold));
+    }
+    50% {
+        filter: drop-shadow(0 0 20px var(--christmas-gold));
+    }
+}
+
+@keyframes bellRing {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-15deg);
+    }
+    75% {
+        transform: rotate(15deg);
+    }
+}
+
+/* ===========================
+   Responsive Decoration Sizes
+   =========================== */
+
+/* Tablet */
+@media (max-width: 1023px) {
+    .gift-box {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .star-decoration {
+        font-size: 2rem;
+    }
+    
+    .bell-decoration {
+        width: 35px;
+        height: 45px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    .gift-box {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .star-decoration {
+        font-size: 1.5rem;
+    }
+    
+    .bell-decoration {
+        width: 30px;
+        height: 40px;
+    }
+}
+
+/* ===========================
+   Audio Controls
+   =========================== */
+
+.audio-controls {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+.audio-button {
+    background: var(--christmas-red);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.audio-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.audio-button:active {
+    transform: scale(0.95);
+}
+
+.audio-icon {
+    font-size: 1.5rem;
+}
+
+.volume-slider {
+    width: 100px;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--christmas-gold);
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--christmas-gold);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ===========================
+   Animation Controls
+   =========================== */
+
+.animation-controls {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+.animation-button {
+    background: var(--christmas-green);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.animation-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.animation-button:active {
+    transform: scale(0.95);
+}
+
+.animation-button.reduced-motion {
+    background: var(--christmas-gold);
+}
+
+.animation-icon {
+    font-size: 1.5rem;
+}
+
+/* Reduced motion mode indicator */
+body.reduced-motion-mode .animation-icon::after {
+    content: '⏸';
+    position: absolute;
+    font-size: 0.8rem;
+    margin-left: -0.3rem;
+    margin-top: 0.8rem;
+}
+
+/* ===========================
+   Responsive Design
+   =========================== */
+
+/* Tablet */
+@media (max-width: 1023px) {
+    .greeting-primary {
+        font-size: 3rem;
+    }
+    
+    .greeting-secondary {
+        font-size: 2rem;
+    }
+    
+    .christmas-tree {
+        height: 50vh;
+        max-width: 350px;
+    }
+    
+    .tree-top {
+        border-left-width: 50px;
+        border-right-width: 50px;
+        border-bottom-width: 85px;
+    }
+    
+    .tree-middle {
+        border-left-width: 75px;
+        border-right-width: 75px;
+        border-bottom-width: 110px;
+    }
+    
+    .tree-bottom {
+        border-left-width: 100px;
+        border-right-width: 100px;
+        border-bottom-width: 135px;
+    }
+    
+    .tree-trunk {
+        width: 35px;
+        height: 50px;
+    }
+    
+    .tree-star {
+        font-size: 2.5rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    .greeting-primary {
+        font-size: 2rem;
+    }
+    
+    .greeting-secondary {
+        font-size: 1.5rem;
+    }
+    
+    .christmas-tree {
+        height: 40vh;
+        max-width: 300px;
+    }
+    
+    .tree-top {
+        border-left-width: 40px;
+        border-right-width: 40px;
+        border-bottom-width: 70px;
+    }
+    
+    .tree-middle {
+        border-left-width: 60px;
+        border-right-width: 60px;
+        border-bottom-width: 90px;
+    }
+    
+    .tree-bottom {
+        border-left-width: 80px;
+        border-right-width: 80px;
+        border-bottom-width: 110px;
+    }
+    
+    .tree-trunk {
+        width: 30px;
+        height: 40px;
+    }
+    
+    .tree-star {
+        font-size: 2rem;
+        top: -25px;
+    }
+    
+    .audio-controls {
+        bottom: 1rem;
+        right: 1rem;
+        padding: 0.5rem 1rem;
+    }
+    
+    .audio-button {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .audio-icon {
+        font-size: 1.2rem;
+    }
+    
+    .volume-slider {
+        width: 80px;
+    }
+    
+    .animation-controls {
+        bottom: 1rem;
+        left: 1rem;
+        padding: 0.5rem 1rem;
+    }
+    
+    .animation-button {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .animation-icon {
+        font-size: 1.2rem;
+    }
+}
+
+/* ===========================
+   Accessibility
+   =========================== */
+
+/* Focus styles for keyboard navigation */
+button:focus,
+input:focus,
+.interactive:focus {
+    outline: 3px solid var(--christmas-gold);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 5px rgba(255, 215, 0, 0.3);
+}
+
+/* Focus visible for better keyboard navigation */
+button:focus-visible,
+input:focus-visible,
+.interactive:focus-visible {
+    outline: 3px solid var(--christmas-gold);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 5px rgba(255, 215, 0, 0.3);
+}
+
+/* Remove focus outline for mouse users */
+button:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+.interactive:focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+}
+
+/* Enhanced focus styles for interactive decorations */
+.gift-box:focus,
+.star-decoration:focus,
+.bell-decoration:focus {
+    outline: 3px solid var(--christmas-gold);
+    outline-offset: 5px;
+    box-shadow: 0 0 0 7px rgba(255, 215, 0, 0.4);
+    transform: scale(1.05);
+}
+
+/* Audio button focus */
+.audio-button:focus {
+    outline: 3px solid var(--christmas-gold);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 5px rgba(255, 215, 0, 0.4), 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Volume slider focus */
+.volume-slider:focus {
+    outline: 2px solid var(--christmas-gold);
+    outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Manual reduced motion mode */
+body.reduced-motion-mode *,
+body.reduced-motion-mode *::before,
+body.reduced-motion-mode *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+}
+
+/* Keep essential transitions even in reduced motion */
+body.reduced-motion-mode button:hover,
+body.reduced-motion-mode .interactive:hover {
+    transition: transform 0.1s ease, filter 0.1s ease !important;
+}
+
+/* ===========================
+   Utility Classes
+   =========================== */
+
+.hidden {
+    display: none !important;
+}
+
+.fade-in {
+    animation: fadeIn 1s ease-in;
+}
+
+/* Screen reader only content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Error notification animations */
+@keyframes slideInRight {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+}
+
+/* ===========================
+   Minimal Viewport Mode (< 320px)
+   =========================== */
+
+body.minimal-viewport {
+    overflow-y: auto;
+}
+
+body.minimal-viewport .container {
+    padding: 1rem 0.5rem;
+    justify-content: flex-start;
+}
+
+body.minimal-viewport .greeting-text {
+    margin-bottom: 1rem;
+}
+
+body.minimal-viewport .christmas-tree {
+    margin-bottom: 1rem;
+}
+
+/* Ensure core content is visible in minimal mode */
+body.minimal-viewport .greeting-primary,
+body.minimal-viewport .greeting-secondary,
+body.minimal-viewport .christmas-tree {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* ===========================
+   No Canvas Support Fallback
+   =========================== */
+
+body.no-canvas-support #snowCanvas {
+    display: none;
+}
+
+/* Ensure other elements still work without canvas */
+body.no-canvas-support .container,
+body.no-canvas-support .greeting-text,
+body.no-canvas-support .christmas-tree {
+    z-index: 2;
+}
